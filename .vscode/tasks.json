@@ -1,0 +1,113 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Expo AV & Document Picker",
+			"type": "shell",
+			"command": "yarn",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Install dependencies (yarn)",
+			"type": "shell",
+			"command": "yarn --no-progress --non-interactive",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint Again",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint Third Time",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Theme Changes",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint Theme Fix",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Removing Icons",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Adding Icons and Padding",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Icon Mapping",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Body Button Color Changes",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run Lint After Placeholder Colors",
+			"type": "shell",
+			"command": "yarn lint",
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		}
+	]
+}

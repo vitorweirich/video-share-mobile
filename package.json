@@ -17,6 +17,8 @@
     "@react-navigation/native": "^7.1.6",
     "expo": "~53.0.22",
     "expo-blur": "~14.1.5",
+    "expo-av": "~16.0.7",
+    "expo-document-picker": "~13.0.2",
     "expo-constants": "~17.1.7",
     "expo-font": "~13.3.2",
     "expo-haptics": "~14.1.4",
@@ -37,7 +39,8 @@
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "@react-native-async-storage/async-storage": "^1.17.11"
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "nanoid": "^5.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -3300,6 +3300,11 @@ expo-asset@~11.1.7:
     "@expo/image-utils" "^0.7.6"
     expo-constants "~17.1.7"
 
+expo-av@~16.0.7:
+  version "16.0.7"
+  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-16.0.7.tgz#51668b335e3a460ca712a281d7138341119ebe26"
+  integrity sha512-QReef6/RYuZ4GekTcZZw5zY26pcPOmHqK6LMgFlPhnsT0ga97HJrgMc63pvIiojDP+q4oIv24g+QPD8ljZu4XQ==
+
 expo-blur@~14.1.5:
   version "14.1.5"
   resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-14.1.5.tgz#910712389e19286ccdc136275bf569f427aa05ef"
@@ -3312,6 +3317,11 @@ expo-constants@~17.1.7:
   dependencies:
     "@expo/config" "~11.0.12"
     "@expo/env" "~1.0.7"
+
+expo-document-picker@~13.0.2:
+  version "13.0.3"
+  resolved "https://registry.yarnpkg.com/expo-document-picker/-/expo-document-picker-13.0.3.tgz#9ec9b056447d11a68d61e93d33c2211fd01b460f"
+  integrity sha512-348xcsiA/YhgWm1SuJNNdb5cUDpRJYCyIk8MhOU2MEDxbVRR+Q1TiUBTCIMVqaWHcxsFQzP56Wwv9n24qjeILg==
 
 expo-file-system@~18.1.11:
   version "18.1.11"
@@ -4923,6 +4933,11 @@ nanoid@^3.3.11, nanoid@^3.3.7:
   version "3.3.11"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.11.tgz#4f4f112cefbe303202f2199838128936266d185b"
   integrity sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==
+
+nanoid@^5.0.7:
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-5.1.5.tgz#f7597f9d9054eb4da9548cdd53ca70f1790e87de"
+  integrity sha512-Ir/+ZpE9fDsNH0hQ3C68uyThDXzYcim2EqcZ8zn8Chtt1iylPT9xXJB0kPCnqzgcEGikO9RxSrh63MsmVCU7Fw==
 
 napi-postinstall@^0.3.0:
   version "0.3.3"
