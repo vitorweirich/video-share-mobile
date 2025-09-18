@@ -22,11 +22,12 @@ export default function TabLayout() {
           ios: {
             position: 'absolute',
             backgroundColor: '#1E1A21',
+            paddingVertical: 8,
           },
-          default: { backgroundColor: '#1E1A21' },
+          default: { backgroundColor: '#1E1A21', paddingVertical: 8 },
         }),
-        tabBarLabelStyle: { textAlign: 'center', width: '100%' },
-        tabBarItemStyle: { backgroundColor: 'transparent' },
+        tabBarLabelStyle: { textAlign: 'center', width: '100%', marginBottom: 4, fontSize: 12, fontWeight: '600' },
+        tabBarItemStyle: { backgroundColor: 'transparent', marginVertical: 6 },
         tabBarActiveBackgroundColor: 'transparent',
         tabBarInactiveBackgroundColor: 'transparent',
       }}>
@@ -34,14 +35,14 @@ export default function TabLayout() {
         name="videos/index"
         options={{
           title: 'Meus Vídeos',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="list.bullet" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={16} name="list.bullet" color={color} />,
         }}
       />
       <Tabs.Screen
         name="upload/index"
         options={{
           title: 'Enviar Vídeo',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="square.and.arrow.up" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={16} name="square.and.arrow.up" color={color} />,
           tabBarButton: (props) => (
             <HapticTab
               {...props}

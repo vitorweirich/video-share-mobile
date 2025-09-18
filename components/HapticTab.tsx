@@ -30,12 +30,11 @@ const styles = StyleSheet.create({
   },
   inner: {
     backgroundColor: '#2D2828',
-    paddingVertical: 12,
-    paddingHorizontal: 18,
+    padding: 12,
     borderRadius: 12,
-    alignSelf: 'center',
     minWidth: '80%',
+    alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 });

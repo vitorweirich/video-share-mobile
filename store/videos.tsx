@@ -6,7 +6,6 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 export type VideoItem = {
   id: number;
   title: string;
-  // The short share URL returned by backend; use ShortLinkController to resolve
   shareUrl?: string;
   expiresIn?: string; // ISO datetime
 };
