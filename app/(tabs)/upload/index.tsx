@@ -23,7 +23,6 @@ export default function UploadVideoScreen() {
     if (!title) return Alert.alert('Informe um título');
     setLoading(true);
     try {
-      // Compose upload request
       const name = title || file.name || 'video.mp4';
       const size = typeof file.size === 'number' ? file.size : 0;
       const mime = file.mimeType || 'video/mp4';
@@ -50,7 +49,7 @@ export default function UploadVideoScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Enviar Vídeo</Text>
-  <TextInput placeholder="Título" placeholderTextColor="#BFBFBF" value={title} onChangeText={setTitle} style={styles.input} />
+      <TextInput placeholder="Título" placeholderTextColor="#BFBFBF" value={title} onChangeText={setTitle} style={styles.input} />
       <Pressable onPress={pickVideo} style={[styles.button, styles.secondary]}>
         <Text style={styles.buttonText}>{file ? 'Vídeo selecionado' : 'Selecionar Vídeo'}</Text>
       </Pressable>

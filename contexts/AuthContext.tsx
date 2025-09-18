@@ -74,7 +74,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       headers: { ...jsonHeaders, 'X-Refresh-Token': tokens.refreshToken },
     });
     if (!res.ok) return false;
-    // Expect 200 with body when X-Http-Only: false
     const body = await res.json().catch(() => null);
     if (body?.accessToken && body?.refreshToken) {
       await saveTokens({ accessToken: body.accessToken, refreshToken: body.refreshToken });
@@ -146,7 +145,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     // Try to extract message from error body
-    let message = 'Não foi possível entrar. Verifique suas credenciais.' + ' ' + res.status + ' ' + res.statusText;
+    let message = 'Não foi possível entrar. Verifique suas credenciais.';
     try {
       const err = await res.json();
       message = err?.message || message;
