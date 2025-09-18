@@ -1,12 +1,15 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function TabLayout() {
+  const { user } = useAuth();
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
@@ -41,6 +44,19 @@ export default function TabLayout() {
         options={{
           title: 'Enviar Vídeo',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="square.and.arrow.up" color={color} />,
+          tabBarButton: (props) => (
+            <HapticTab
+              {...props}
+              onPress={(e: any) => {
+                if (!user) {
+                  e?.preventDefault?.();
+                  router.push('/login');
+                  return;
+                }
+                props.onPress?.(e);
+              }}
+            />
+          ),
         }}
       />
     </Tabs>

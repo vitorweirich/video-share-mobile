@@ -33,7 +33,7 @@ const VideosContext = createContext<VideosContextType | undefined>(undefined);
 
 export function VideosProvider({ children }: { children: React.ReactNode }) {
   const [videos, setVideos] = useState<VideoItem[]>([]);
-  const { authFetch } = useAuth();
+  const { authFetch, user } = useAuth();
 
   const refresh = useCallback(async () => {
     const res = await authFetch('/v1/videos/me?rows=20');
@@ -49,9 +49,14 @@ export function VideosProvider({ children }: { children: React.ReactNode }) {
     setVideos(mapped);
   }, [authFetch]);
 
+  // Keep videos in sync with auth state: clear on logout, refresh on login
   useEffect(() => {
+    if (!user) {
+      setVideos([]);
+      return;
+    }
     refresh().catch(() => {});
-  }, [refresh]);
+  }, [user, refresh]);
 
   const requestSignedPut = useCallback(async (name: string, size: number, mimeType: string) => {
     const res = await authFetch('/v1/videos/upload', {
@@ -76,15 +81,31 @@ export function VideosProvider({ children }: { children: React.ReactNode }) {
       uploadUri = target;
     }
     onProgress?.(0);
-    const result = await FileSystem.uploadAsync(
+    // Use a progress-capable upload task to emit real-time progress updates
+    const uploadTask = FileSystem.createUploadTask(
       signedUrl,
       uploadUri,
       {
         httpMethod: 'PUT',
         headers: { 'Content-Type': file.mimeType },
         uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+      },
+      (evt) => {
+        try {
+          const sent = evt.totalBytesSent ?? 0;
+          const expectedFromEvent = (evt.totalBytesExpectedToSend ?? 0);
+          const expected = expectedFromEvent > 0 ? expectedFromEvent : (knownSize && knownSize > 0 ? knownSize : 0);
+          if (expected > 0) {
+            // Clamp between 0 and <1; final 1 will be emitted after success
+            const ratio = Math.max(0, Math.min(0.999, sent / expected));
+            onProgress?.(ratio);
+          }
+        } catch {
+          // ignore progress errors
+        }
       }
     );
+    const result = await uploadTask.uploadAsync();
     if (!result || result.status < 200 || result.status >= 300) {
       const response = result?.body ? ` - ${result.body}` : '';
       throw new Error(`Falha ao enviar arquivo (HTTP ${result?.status ?? 'desconhecido'})${response}`);

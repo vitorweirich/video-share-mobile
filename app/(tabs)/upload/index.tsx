@@ -1,5 +1,6 @@
 import { useVideos } from '@/store/videos';
 import * as DocumentPicker from 'expo-document-picker';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -36,7 +37,8 @@ export default function UploadVideoScreen() {
       setFile(null);
       setProgress(0);
       setStage(null);
-      Alert.alert('Sucesso', 'Vídeo enviado!');
+      Alert.alert('Sucesso', 'Vídeo enviado com sucesso!');
+      router.replace('/(tabs)/videos');
     } catch (e:any) {
       const msg = e?.message || 'Falha ao enviar o vídeo. Tente novamente mais tarde.';
       Alert.alert('Erro no upload', msg);
