@@ -1,50 +1,80 @@
-# Welcome to your Expo app 👋
+# VideoShare Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo desenvolvido com [Expo](https://expo.dev) e React Native, utilizando o roteador expo-router e a navegação do ecossistema React Navigation.
 
-## Get started
+## Apresentação
 
-1. Install dependencies
+Este repositório contém um trabalho acadêmico da disciplina 28743 - DESENVOLVIMENTO MOBILE.
 
-   ```bash
-   npm install
-   ```
+- Aluno(a): Vitor Mateus Weirich (weirichvitor@gmail.com)
+- Turma: EAD54-12
+- Professor(a): Alysson Oliveira
+- Disciplina: 28743 - DESENVOLVIMENTO MOBILE
 
-2. Start the app
+Documento de requisitos e protótipos (wireframes/mockups):
 
-   ```bash
-   npx expo start
-   ```
+- Caminho no repositório: `layout (Protótipo)/Requisitos e Propósta de Layout (Protótipo).md`
+- Link direto (GitHub): https://github.com/vitorweirich/video-share-mobile/blob/master/layout%20(Protótipo)/Requisitos%20e%20Propósta%20de%20Layout%20(Protótipo).md
 
-In the output, you'll find options to open the app in a
+Principais requisitos funcionais definidos no documento:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Autenticação (Login e Cadastro)
+- Gerenciamento de vídeos: Meus Vídeos (listagem), Visualização de Vídeo e Envio de Vídeo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Estrutura básica do projeto
 
-## Get a fresh project
+Pastas e arquivos principais:
 
-When you're ready, run:
+- `app/` — Páginas (file-based routing via expo-router)
+  - `login.tsx` — Tela de Login
+  - `cadastro.tsx` — Tela de Cadastro
+  - `(tabs)/_layout.tsx` — Layout das abas
+  - `(tabs)/videos/index.tsx` — Tela Meus Vídeos (listagem)
+  - `(tabs)/upload/index.tsx` — Tela de Envio de Vídeo
+  - `video/[id].tsx` — Tela de Visualização de Vídeo (detalhes/reprodução)
+  - `_layout.tsx`, `+not-found.tsx` — Arquivos de layout e fallback
+- `components/` — Componentes reutilizáveis de UI
+- `contexts/AuthContext.tsx` — Contexto de autenticação
+- `store/videos.tsx` — Estado/armazenamento local de vídeos
+- `constants/api.ts` — Configurações auxiliares (endpoints, etc.)
+- `assets/` — Imagens, fontes e ícones
+- `layout (Protótipo)/` — Protótipos e documento de requisitos
 
-```bash
-npm run reset-project
-```
+Telas previstas/implementadas:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Login (`app/login.tsx`)
+- Cadastro (`app/cadastro.tsx`)
+- Meus Vídeos / Listagem (`app/(tabs)/videos/index.tsx`)
+- Envio de Vídeo (`app/(tabs)/upload/index.tsx`)
+- Visualização de Vídeo (`app/video/[id].tsx`)
 
-## Learn more
+Dependências principais (parcial):
 
-To learn more about developing your project with Expo, look at the following resources:
+- Expo e ecossistema: `expo`, `expo-router`, `expo-splash-screen`, `expo-status-bar`, `expo-constants`, `expo-font`, `expo-blur`, `expo-haptics`, `expo-linking`, `expo-symbols`
+- Navegação: `@react-navigation/native`, `@react-navigation/bottom-tabs`, `@react-navigation/elements`, `react-native-screens`, `react-native-safe-area-context`
+- Gestos/Animações: `react-native-gesture-handler`, `react-native-reanimated`
+- Vídeo e arquivos: `expo-av` (reprodução de vídeo), `expo-document-picker` (seleção de arquivos)
+- Utilidades: `@react-native-async-storage/async-storage`, `nanoid`
+- UI/Ícones: `@expo/vector-icons`
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Scripts úteis (package.json):
 
-## Join the community
+- `yarn start` — Inicia o servidor do Expo
+- `yarn android` — Executa no Android (build nativo via Expo)
+- `yarn ios` — Executa no iOS (requer macOS/Xcode)
+- `yarn web` — Executa no navegador
+- `yarn lint` — Linting com ESLint/Expo
 
-Join our community of developers creating universal apps.
+## Como executar
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Instale as dependências: `yarn` (ou `npm install`)
+2. Inicie o app: `yarn start` (ou `npx expo start`)
+3. Abra no emulador Android, iOS ou no Expo Go conforme sua preferência.
+
+Este projeto usa [file-based routing](https://docs.expo.dev/router/introduction): as rotas são definidas pelos arquivos dentro da pasta `app/`.
+
+## Recursos úteis
+
+- Documentação do Expo: https://docs.expo.dev/
+- Guia do expo-router: https://docs.expo.dev/router/introduction/
+- React Navigation: https://reactnavigation.org/
