@@ -15,7 +15,7 @@ export default function LoginScreen() {
     setLoading(true);
     try {
       await login(email, password);
-      router.back();
+      router.replace('/(tabs)/videos');
     } catch (e: any) {
       Alert.alert('Erro ao entrar', e?.message || 'Tente novamente.');
     } finally {

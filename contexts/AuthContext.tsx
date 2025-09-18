@@ -160,13 +160,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const res = await fetch(`${API_URL}/v1/api/auth/register`, {
       method: 'POST',
       headers: jsonHeaders,
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name: name.trim(), email: email.trim(), password: password.trim() }),
     });
     if (!res.ok) {
       let message = 'Falha ao cadastrar. Tente novamente.';
       try {
         const err = await res.json();
-        message = err?.message || message;
+        message = JSON.stringify(err) || err?.message || message;
       } catch {}
       throw new Error(message);
     }

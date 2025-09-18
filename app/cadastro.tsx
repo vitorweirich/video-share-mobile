@@ -27,6 +27,8 @@ export default function CadastroScreen() {
           },
         ]
       );
+    } catch (e: any) {
+      Alert.alert('Erro', e.message);
     } finally {
       setLoading(false);
     }
