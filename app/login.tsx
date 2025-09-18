@@ -6,16 +6,18 @@ import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-nativ
 export default function LoginScreen() {
   const { login } = useAuth();
   const router = useRouter();
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
-    if (!name) return Alert.alert('Informe seu nome');
+    if (!email) return Alert.alert('Informe seu e-mail');
     setLoading(true);
     try {
-      await login(name, password);
+      await login(email, password);
       router.back();
+    } catch (e: any) {
+      Alert.alert('Erro ao entrar', e?.message || 'Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -24,12 +26,21 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Entrar</Text>
-  <TextInput placeholder="Nome" placeholderTextColor="#BFBFBF" value={name} onChangeText={setName} style={styles.input} />
-  <TextInput placeholder="Senha" placeholderTextColor="#BFBFBF" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      <TextInput
+        placeholder="E-mail"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholderTextColor="#BFBFBF"
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input}
+      />
+      <TextInput placeholder="Senha" placeholderTextColor="#BFBFBF" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
       <Pressable onPress={onSubmit} style={styles.button} disabled={loading}>
         <Text style={styles.buttonText}>{loading ? 'Entrando...' : 'Entrar'}</Text>
       </Pressable>
-  <Link href={{ pathname: '/cadastro' } as any} style={styles.link}>Não tem conta? Cadastre-se</Link>
+      <Link href={{ pathname: '/cadastro' } as any} style={styles.link}>Não tem conta? Cadastre-se</Link>
     </View>
   );
 }

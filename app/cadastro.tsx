@@ -7,15 +7,26 @@ export default function CadastroScreen() {
   const { register } = useAuth();
   const router = useRouter();
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
     if (!name) return Alert.alert('Informe seu nome');
+    if (!email) return Alert.alert('Informe seu e-mail');
     setLoading(true);
     try {
-  await register(name, password);
-  router.replace({ pathname: '/(tabs)/videos/index' } as any);
+      await register(name, email, password);
+      Alert.alert(
+        'Cadastro quase lá',
+        'Enviamos um e-mail de confirmação. Confirme para concluir seu cadastro.',
+        [
+          {
+            text: 'OK',
+            onPress: () => router.replace({ pathname: '/login' } as any),
+          },
+        ]
+      );
     } finally {
       setLoading(false);
     }
@@ -24,8 +35,18 @@ export default function CadastroScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastro</Text>
-  <TextInput placeholder="Nome" placeholderTextColor="#BFBFBF" value={name} onChangeText={setName} style={styles.input} />
-  <TextInput placeholder="Senha" placeholderTextColor="#BFBFBF" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
+      <TextInput placeholder="Nome" placeholderTextColor="#BFBFBF" value={name} onChangeText={setName} style={styles.input} />
+      <TextInput
+        placeholder="E-mail"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholderTextColor="#BFBFBF"
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input}
+      />
+      <TextInput placeholder="Senha" placeholderTextColor="#BFBFBF" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
       <Pressable onPress={onSubmit} style={styles.button} disabled={loading}>
         <Text style={styles.buttonText}>{loading ? 'Cadastrando...' : 'Cadastrar'}</Text>
       </Pressable>
