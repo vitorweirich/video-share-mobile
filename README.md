@@ -2,6 +2,8 @@
 
 Aplicativo desenvolvido com [Expo](https://expo.dev) e React Native, utilizando o roteador expo-router e a navegação do ecossistema React Navigation.
 
+Link para esse arquivo no [github](https://github.com/vitorweirich/video-share-mobile)
+
 ## Apresentação
 
 Este repositório contém um trabalho acadêmico da disciplina 28743 - DESENVOLVIMENTO MOBILE.
@@ -78,3 +80,64 @@ Este projeto usa [file-based routing](https://docs.expo.dev/router/introduction)
 - Documentação do Expo: https://docs.expo.dev/
 - Guia do expo-router: https://docs.expo.dev/router/introduction/
 - React Navigation: https://reactnavigation.org/
+
+## Integração com o Backend
+
+Esta seção descreve como o app consome as APIs do backend e como a autenticação e o fluxo de upload/reprodução de vídeos funcionam.
+
+### Configuração da URL base
+
+- O arquivo `constants/api.ts` define a URL base da API em `API_URL`.
+- Por padrão, usa `https://native.videos.vitorweirich.com`.
+- É possível sobrescrever em tempo de build/execução definindo a variável de ambiente `EXPO_PUBLIC_API_URL` (qualquer valor `EXPO_PUBLIC_*` fica disponível no bundle do app). Ex.: para apontar para um backend local, defina `EXPO_PUBLIC_API_URL=http://10.0.2.2:8080` (Android Emulator).
+- O objeto `jsonHeaders` centraliza os headers JSON e inclui `X-Http-Only: false` para que o backend retorne os tokens no corpo da resposta ao invés de cookies HttpOnly.
+
+Arquivos:
+
+- `constants/api.ts` — `API_URL` e `jsonHeaders`.
+
+### Autenticação e tokens
+
+Implementado em `contexts/AuthContext.tsx`.
+
+- Login: `POST /v1/api/auth/login` com `{ email, password }`.
+  - Espera receber `{ accessToken, refreshToken }` no corpo da resposta.
+  - Tokens são persistidos no AsyncStorage e adicionados como `Authorization: Bearer <accessToken>` em todas as requisições autenticadas.
+  - Caso o backend retorne `{ token }` (fluxo de MFA), o app informa o usuário para finalizar a verificação em outro canal.
+- Registro: `POST /v1/api/auth/register` com `{ name, email, password }` (envio de e-mail de confirmação).
+- Perfil: `GET /v1/api/auth/me` retorna dados do usuário logado; usado na inicialização e após o login para popular `user`.
+- Refresh: `POST /v1/api/auth/refresh` com header `X-Refresh-Token`.
+  - O app tenta automaticamente o refresh quando recebe `401/403` e repete a chamada original uma vez.
+- Logout: `POST /v1/api/auth/logout` com `X-Refresh-Token` para invalidar o refresh token no backend; localmente, os tokens e o perfil são limpos do AsyncStorage.
+
+Headers relevantes:
+
+- `Authorization: Bearer <accessToken>` em endpoints protegidos.
+- `X-Refresh-Token: <refreshToken>` para refresh/logout quando aplicável.
+
+### Gerenciamento de vídeos
+
+Implementado em `store/videos.tsx` via contexto `VideosProvider`.
+
+- Listar meus vídeos: `GET /v1/videos/me?rows=20`
+  - Mapeia a resposta (Page<VideoDTO>) para `{ id, title, shareUrl, expiresIn }`.
+- Upload de vídeo (assinado):
+  1. Solicitar URL de upload: `POST /v1/videos/upload` com `{ fileName, fileSize, contentType }`.
+     - Resposta esperada: `{ signedUrl, videoId, expirationDate }`.
+  2. Enviar o arquivo binário para `signedUrl` via `PUT` (o app usa `expo-file-system` e `createUploadTask` para acompanhar progresso).
+  3. Registrar upload concluído: `PATCH /v1/videos/upload/{videoId}/register-uploaded` (204 esperado).
+  4. Atualizar listagem chamando novamente a API de listagem.
+- Obter URL de reprodução: `GET /v1/videos/{id}`
+  - Retorna um `signedUrl` temporário para reprodução/streaming no player (`expo-av`).
+
+### Tratamento de erros e segurança
+
+- Falhas de rede/autorização exibem mensagens amigáveis; quando possível, o app tenta extrair `message` do corpo de erro.
+- Tokens ficam em `AsyncStorage` e são usados somente para compor o header `Authorization`.
+- O refresh é feito de forma transparente no helper `authFetch` (repetição automática uma vez após 401/403).
+- Para uploads a partir de URIs `content://`, o arquivo é copiado para um caminho local `file://` antes do envio para garantir compatibilidade.
+
+### Referências de código
+
+- `contexts/AuthContext.tsx` — fluxo de login, refresh, logout, `authFetch`.
+- `store/videos.tsx` — listagem, solicitação de URL assinada, upload com progresso, registro de upload e obtenção de URL de playback.

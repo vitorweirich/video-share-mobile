@@ -5,7 +5,7 @@
 - **Professor(a):** Alysson Oliveira
 - **Disciplina:** 28743 - DESENVOLVIMENTO MOBILE
 
-Esse arquivo juntamento com os demais arquivos do projeto (autalmente incompletos) estão acessíveis no [github](<https://github.com/vitorweirich/video-share-mobile/blob/master/layout%20(Protótipo)/Requisitos%20e%20Propósta%20de%20Layout%20(Protótipo).md>)
+Esse arquivo juntamento com os demais arquivos do projeto estão acessíveis no [github](<https://github.com/vitorweirich/video-share-mobile/blob/master/layout%20(Protótipo)/Requisitos%20e%20Propósta%20de%20Layout%20(Protótipo).md>)
 
 ---
 
