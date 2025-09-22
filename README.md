@@ -4,6 +4,8 @@ Aplicativo desenvolvido com [Expo](https://expo.dev) e React Native, utilizando 
 
 Link para esse arquivo no [github](https://github.com/vitorweirich/video-share-mobile)
 
+Link para apresentação do projeto no [youtube](https://www.youtube.com/watch?v=enwT61He6Dw)
+
 ## Apresentação
 
 Este repositório contém um trabalho acadêmico da disciplina 28743 - DESENVOLVIMENTO MOBILE.
